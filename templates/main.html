@@ -18,11 +18,19 @@
 <body>
 
     <header>
+        <a href="/">Main</a>
+        <a href="/about/">About</a>
+        <a href="/login/">Login</a>
+        <a href="/register/">Register</a>
+        <a href="/submit/">Submit</a>
+        <a href="/word/">Word</a>
+        <a href="/search/">Search</a>
+        <a href="/logout/">Logout</a>
     </header><!-- end header -->
 
     <div id="main">
         <div id="container">
-            <h1>{{ page_heading }}</h1>
+            {% block body %}{% end %}
         </div><!-- end container -->
     </div><!-- end main -->
 
@@ -38,16 +46,6 @@
 
     <!-- main script -->
     <script src="{{ static_url("js/script.js") }}"></script>
-
-    {% if (google_analytics_id != False) %}
-    <!-- analytic party -->
-    <script type="text/javascript">
-        var _gaq=[['_setAccount','{{ google_analytics_id }}'],['_trackPageview']];
-        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-        s.parentNode.insertBefore(g,s)}(document,'script'));
-    </script>
-    {% end %}
 
     </body>
 </html>

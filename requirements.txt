@@ -1,1 +1,5 @@
 Tornado>=3
+Mongoengine
+unidecode
+py-bcrypt
+numpy

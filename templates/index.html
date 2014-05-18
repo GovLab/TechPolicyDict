@@ -1,0 +1,19 @@
+{% extends "main.html" %}
+{% autoescape None %}
+
+
+{% block body %}
+
+
+<h1>{{ page_heading }}</h1>
+
+
+{% if user %}
+	<h2>Welcome {{user.name}}</h2>
+{% end %}
+
+
+
+
+
+{% end %}

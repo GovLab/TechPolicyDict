@@ -3,7 +3,8 @@ bin
 build
 include
 lib
-
+.env
+.gitignore
 # python stuff
 *.pyc
 

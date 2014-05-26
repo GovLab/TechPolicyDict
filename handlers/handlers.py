@@ -6,14 +6,16 @@ class MainHandler(BaseHandler):
     #@tornado.web.authenticated
     def get(self):
         try: 
-            user = models.User.objects.get(email=self.current_user)
+            user = models.Users.objects.get(email=self.current_user)
         except:
             user = ''
+        words = models.Words.objects()
         self.render(
             "index.html",
             page_title='Heroku Funtimes',
             page_heading='Main Page',
-            user=user
+            user=user,
+            words = words
         )
 
 class AboutHandler(BaseHandler):
@@ -41,7 +43,7 @@ class LoginHandler(BaseHandler):
         email = self.get_argument("email", "")
         password = self.get_argument("password", "").encode('utf-8')
         try: 
-            user = models.User.objects.get(email=email)
+            user = models.Users.objects.get(email=email)
         except Exception, e:
             logging.info('unsuccessful login')
             error_msg = u"?error=" + tornado.escape.url_escape("User does not exist")
@@ -77,7 +79,7 @@ class RegisterHandler(LoginHandler):
         email = self.get_argument("email", "")
         name = self.get_argument("name", "")
         try:
-            user = models.User.objects.get(email=email)
+            user = models.Users.objects.get(email=email)
         except:
             user = ''
         if user:
@@ -109,11 +111,34 @@ class SubmitHandler(BaseHandler):
     @tornado.web.addslash
     #@tornado.web.authenticated
     def get(self):
+        logging.info(self.current_user)
         self.render(
             "submit.html",
             page_title='Heroku Funtimes',
             page_heading='Submit Page',
+            user = self.current_user
         )
+
+    def post(self):
+        w = self.get_argument("word", None)
+        d = self.get_argument("definition", None)
+        category = self.get_argument("category", None)
+        self.get_argument("tags", None)
+        tags = [x.strip() for x in self.get_argument("tags", None).split(',')]
+        user = models.Users.objects.get(email=self.current_user)
+        definition = models.Definitions(
+            d = d,
+            category = category,
+            sub = user
+        )
+        word = models.Words(
+            w = w,
+            tags = tags,
+            sub = user
+        )
+        word.defs.append(definition)
+        word.save()
+        self.redirect("/")
 
 class WordHandler(BaseHandler):
     @tornado.web.addslash
@@ -129,10 +154,14 @@ class SearchHandler(BaseHandler):
     @tornado.web.addslash
     #@tornado.web.authenticated
     def get(self):
+        tag = self.get_argument("tag", "")
+        words = models.Words.objects(tags__contains=tag)
         self.render(
             "search.html",
             page_title='Heroku Funtimes',
             page_heading='Search Page',
+            words = words,
+            tag=tag
         )
 
 

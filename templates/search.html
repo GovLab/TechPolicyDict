@@ -9,9 +9,15 @@
 
 
 
+{% if tag %}
+<p>{{tag}}</p>
+{% end %}
 
-
-
+{% if words %}
+	{% for word in words %}
+		<p>{{word.w}}</p>
+	{% end %}
+{%end%}
 
 
 {% end %}

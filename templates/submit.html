@@ -7,8 +7,22 @@
 
 <h1>{{ page_heading }}</h1>
 
-
-
+{% if user %}
+<form method="POST">
+	<label for="word">Word: <input type="text" class="word" name="word"></label><br>
+	<p>Definition:</p>
+	<textarea class="definition" name="definition"></textarea>
+	<p>Category</p>
+	<input type="radio" name="category" id="cateory_tech" value="Tech"><label for="cateory_tech">Tech</label>
+	<input type="radio" name="category" id="category_policy" value="Policy"><label for="category_policy">Policy</label>
+	<p>Tags: </p>
+	<label for="tags"><input type="text" class="tags" name="tags" placeholder="Separated by commas."></label>
+	{% raw xsrf_form_html() %}
+	<input type="submit"> 
+</form>
+{% else %}
+<p>You must be <a href="/login/">logged in</a> to submit a word</p>
+{% end %}
 
 
 

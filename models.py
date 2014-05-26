@@ -8,21 +8,24 @@ from datetime import datetime
 
 
 
-class User(Document):
+class Users(Document):
 	ts = ComplexDateTimeField(default=datetime.now())
 	email = StringField()
 	name = StringField()
 	password = StringField()
 
-class Definition(EmbeddedDocument):
-	definition = StringField()
+class Definitions(EmbeddedDocument):
+	ts = ComplexDateTimeField(default=datetime.now())
+	d = StringField()
 	category = StringField()
-	tags = ListField(StringField())
 	voteUp = IntField()
 	voteDown = IntField()
+	sub = ReferenceField(Users)
 
-class Word(Document):
+class Words(Document):
 	ts = ComplexDateTimeField(default=datetime.now())
-	word = StringField()
-	defs = ListField(EmbeddedDocumentField(Definition))
+	w = StringField()
+	tags = ListField(StringField())
+	defs = ListField(EmbeddedDocumentField(Definitions))
+	sub = ReferenceField(Users)
 

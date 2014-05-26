@@ -5,15 +5,24 @@
 {% block body %}
 
 
-<h1>{{ page_heading }}</h1>
+	<h1>{{ page_heading }}</h1>
 
 
-{% if user %}
-	<h2>Welcome {{user.name}}</h2>
-{% end %}
+	{% if user %}
+		<h2>Welcome {{user.name}}</h2>
+	{% end %}
 
-
-
+	{% for word in words %}
+		<h3>{{ word.w}}</h3>
+		<p>Definitions</p>
+		{% for d in word.defs %}
+			<p>{{ d.d}}</p>
+		{% end %}
+		<p>Tags:</p>
+		{% for tag in word.tags %}<a href="/search/?tag={{tag}}">{{tag}}</a> {% end %}
+		<p>Submitted by: {{word.sub.name}}</p>
+		<p>=======================================================</p>
+	{% end %}
 
 
 {% end %}

@@ -39,7 +39,7 @@
 		<div class="large-4 medium-6 small-12 column">
 			<div class="verbete">
 				<h4><a href="/word/?word={{word.name}}">{{word.name}}</a></h4>
-				<div class="definition-main">
+				<div class="definition-main {{word.defs[0].category}}">
 					<p>{{ word.defs[0].d }} (<a href="/word/?word={{word.name}}">see more</a>)</p>
 				</div>
 				<p>Tags: {% for tag in word.tags %}<a class="tag" href="/search/?tag={{tag}}">{{tag}}, </a>{% end %}</p>

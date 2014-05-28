@@ -8,53 +8,59 @@
 
 {% if word %}
 	<h1>{{ word.name }}</h1>
-
-	{% if word.defs %}
-		<div class="definition-list">
-			{% for d in word.defs %}
-				<div class="definition {{d.category}}">
-					<p>{{d.d}}</p>
-					<button>Vote Up</button><button>Vote Down</button>
-					<p>--------------------------------</p>
-				</div>
-			{%end%}
-		</div>
-		<p>Tags: {% for tag in word.tags %}<a href="/search/?tag={{tag}}">{{tag}}</a> {%end%}</p>
-		<form method="POST" name="add-tags" parsley-validate>
-			<label for="tags">Add tags (separated by commas): <input type="text" class="tags" name="tags" id="tag-field" parsley-required="true"></label><br>
-			<input type="hidden" name="action" value="add-tags">
-			<input type="hidden" name="word_name" value="{{word.prettyName}}">
-			{% raw xsrf_form_html() %}
-			<input type="submit" value="Submit Tags">
-		</form>
-		<h3>Add your own definition: </h3>
-		<form method="POST" name="add-def" parsley-validate>
-			<p>Definition [100 words max]:</p>
-			<textarea class="definition" name="definition" parsley-maxwords="100" parsley-required="true"></textarea>
-			<p>Category</p>
-			<label for="cateory_tech"><input type="radio" name="category" id="cateory_tech" value="Tech">Tech</label>
-			<label for="category_policy"><input type="radio" name="category" id="category_policy" value="Policy">Policy</label>
-			<label for="category_both"><input type="radio" name="category" id="category_both" value="Policy" parsley-required="true">Both</label><br>
-			<input type="hidden" name="action" value="define">
-			<input type="hidden" name="word_name" value="{{word.prettyName}}">
-			{% raw xsrf_form_html() %}
-			<input type="submit"> 
-		</form>
+	{% if user %}
+		{% if word.defs %}
+			<div class="definition-list">
+				{% for d in word.defs %}
+					<div class="definition {{d.category}}">
+						<p>{{d.d}}</p>
+						<button>Vote Up</button><button>Vote Down</button>
+						<p>--------------------------------</p>
+					</div>
+				{%end%}
+			</div>
+			<p>Tags: {% for tag in word.tags %}<a href="/search/?tag={{tag}}">{{tag}}</a> {%end%}</p>
+			<form method="POST" name="add-tags" parsley-validate>
+				<label for="tags">Add tags (separated by commas): <input type="hidden" class="tags" name="tags" id="tag-field" parsley-required="true"></label><br>
+				<input type="hidden" name="action" value="add-tags">
+				<input type="hidden" name="word_name" value="{{word.prettyName}}">
+				{% raw xsrf_form_html() %}
+				<input type="submit" value="Submit Tags">
+			</form>
+			<h3>Add your own definition: </h3>
+			<form method="POST" name="add-def" parsley-validate>
+				<p>Definition [100 words max]:</p>
+				<textarea class="definition" name="definition" parsley-maxwords="100" parsley-required="true"></textarea>
+				<p>Category</p>
+				<label for="cateory_tech"><input type="radio" name="category" id="cateory_tech" value="Tech">Tech</label>
+				<label for="category_policy"><input type="radio" name="category" id="category_policy" value="Policy">Policy</label>
+				<label for="category_both"><input type="radio" name="category" id="category_both" value="Policy" parsley-required="true">Both</label><br>
+				<input type="hidden" name="action" value="define">
+				<input type="hidden" name="word_name" value="{{word.prettyName}}">
+				{% raw xsrf_form_html() %}
+				<input type="submit"> 
+			</form>
+		{%else%}
+			<h3>This term/phrase is not yet defined, define it! </h3>
+			<form method="POST" name="add-def" parsley-validate>
+				<p>Definition [100 words max]:</p>
+				<textarea class="definition" name="definition" parsley-maxwords="100" parsley-required="true"></textarea>
+				<p>Category</p>
+				<label for="cateory_tech"><input type="radio" name="category" id="cateory_tech" value="Tech">Tech</label>
+				<label for="category_policy"><input type="radio" name="category" id="category_policy" value="Policy">Policy</label>
+				<label for="category_both"><input type="radio" name="category" id="category_both" value="Policy" parsley-required="true">Both</label><br>
+				<label for="tags">Add tags (separated by commas): <input type="hidden" class="tags" name="tags" id="tag-field" parsley-required="true"></label><br>
+				<input type="hidden" name="word_name" value="{{word.prettyName}}">
+				<input type="hidden" name="action" value="define_new">
+				{% raw xsrf_form_html() %}
+				<input type="submit"> 
+			</form>
+		{%end%}
 	{%else%}
-		<h3>This term/phrase is not yet defined, define it! </h3>
-		<form method="POST" name="add-def" parsley-validate>
-			<p>Definition [100 words max]:</p>
-			<textarea class="definition" name="definition" parsley-maxwords="100" parsley-required="true"></textarea>
-			<p>Category</p>
-			<label for="cateory_tech"><input type="radio" name="category" id="cateory_tech" value="Tech">Tech</label>
-			<label for="category_policy"><input type="radio" name="category" id="category_policy" value="Policy">Policy</label>
-			<label for="category_both"><input type="radio" name="category" id="category_both" value="Policy" parsley-required="true">Both</label><br>
-			<label for="tags">Add tags (separated by commas): <input type="text" class="tags" name="tags" id="tag-field" parsley-required="true"></label><br>
-			<input type="hidden" name="word_name" value="{{word.prettyName}}">
-			<input type="hidden" name="action" value="define_new">
-			{% raw xsrf_form_html() %}
-			<input type="submit"> 
-		</form>
+		<p>No definitions yet :(</p>
+		<div class="column large-12 medium-12 small-12 bottom-message">
+			<p>Would you like to define this term or phrase? You must be <a href="/login/">logged in</a> to do that.</p>
+		</div>
 	{%end%}
 	
 {%end%}

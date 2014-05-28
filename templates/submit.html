@@ -11,21 +11,22 @@
 
 <div class="row">
 	<div class="column large-12 medium-12 small-12">
-		<h2>Would you like to see a word or phrase defined? Request it!</h2>
+		<h1>Request a term or phrase!</h1>
 	</div>
 </div>
 <div class="row">
-<form method="POST" name="request" parsley-validate>
-	<div class="column large-12 medium-12 small-12">
-		<label for="word">Word:
-		<input type="text" class="word" name="word_name" parsley-remote="/validate/" parsley-remote-method="POST" parsley-required="true"></label>		
-		<input type="hidden" name="action" value="request">
-	</div>
-	<div class="column large-12 medium-12 small-12">
-		{% raw xsrf_form_html() %}
-		<input class="m-button" type="submit"> 
-	</div>
-</form>
+	<form method="POST" name="request" parsley-validate>
+		<div class="column large-12 medium-12 small-12">
+			<label for="word">Word:
+			<input type="text" class="word" name="word_name" parsley-remote="/validate/" parsley-remote-method="POST" parsley-required="true"></label>		
+			<input type="hidden" name="action" value="request">
+		</div>
+		<div class="column large-12 medium-12 small-12">
+			{% raw xsrf_form_html() %}
+			<input class="m-button" type="submit"> 
+		</div>
+	</form>
+</div>
 
 {% if user %}
 

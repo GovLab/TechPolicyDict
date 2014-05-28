@@ -183,6 +183,65 @@ class WordHandler(BaseHandler):
                 page_title = "Word Not Found"
             )
 
+    def post(self):
+        try:
+            user = models.Users.objects.get(email=self.current_user)
+        except Exception, e:
+            logging.info("Could not get user. Are you logged in? " + str(e))
+            self.redirect("/login/")
+        action = self.get_argument("action", None)
+        prettyName = self.get_argument("word_name", None)
+        try: 
+            word = models.Words.objects.get(prettyName=prettyName)
+        except Exception, e:
+            logging.info("Error, could not get "+ str(prettyName) + ": " + str(e))
+            self.render(
+                "404.html",
+                error = "Word Not Found",
+                page_heading = "Word Not Found",
+                page_title = "Word Not Found"
+            )
+            #--------------------------------------ADD TAGS-------------------------
+        if action == "add-tags":
+            tags = [x.strip() for x in self.get_argument("tags", None).split(',')]
+            for tag in tags:
+                if tag not in word.tags:
+                    word.tags.append(tag)
+            word.save()
+            self.render(
+                "word.html",
+                page_title='Heroku Funtimes',
+                page_heading='Word Page',
+                word=word
+            )
+            #--------------------------------------ADD DEFINITION-------------------------
+        if action == "define":
+            definition = models.Definitions(
+                d = self.get_argument("definition", None),
+                category = self.get_argument("category", None),
+                sub = models.Users.objects.get(email=self.current_user)
+            )
+            word.defs.append(definition)
+            word.status = "defined"
+            word.save()
+            self.redirect("/word/?word="+tornado.escape.url_escape(word.name))
+            #--------------------------------------ADD NEW DEFINITION-------------------------
+        if action == "define_new":
+            tags = [x.strip() for x in self.get_argument("tags", None).split(',')]
+            definition = models.Definitions(
+                d = self.get_argument("definition", None),
+                category = self.get_argument("category", None),
+                sub = models.Users.objects.get(email=self.current_user)
+            )
+            word.defs.append(definition)
+            word.tags = tags
+            word.status = "defined"
+            word.sub = user
+            word.save()
+            self.redirect("/word/?word="+tornado.escape.url_escape(word.name))
+
+
+
 class SearchHandler(BaseHandler):
     @tornado.web.addslash
     #@tornado.web.authenticated

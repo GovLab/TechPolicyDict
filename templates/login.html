@@ -13,9 +13,9 @@
 </style>
 <h1>{{ page_heading }}</h1>
 
-<form class="login-form" action="/login" method="POST">
-	<div class="m-form-line"><label for="">Email/Username:</label><input type="text" name="email" /></div>
-	<div class="m-form-line"><label for="">Password:</label><input type="password" name="password" /></div>
+<form class="login-form" action="/login" method="POST" parsley-validate>
+	<div class="m-form-line"><label for="">Email:</label><input type="text" name="email" parsley-trigger="change" parsley-type="email" parsley-required="true" /></div>
+	<div class="m-form-line"><label for="">Password:</label><input type="password" name="password" parsley-required="true" /></div>
 	{% raw xsrf_form_html() %}
 	<div class="m-form-line submit"><input class="m-button" type="submit" value="Log In" /></div>
 	{% try %}

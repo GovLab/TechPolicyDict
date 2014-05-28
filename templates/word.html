@@ -20,10 +20,11 @@
 			<p>--------------------------------</p>
 		{%end%}
 		<p>================================================================================</p>
-		<p>Tags: {% for tag in word.tags %}{{tag}} {%end%}</p>
+		<p>Tags: {% for tag in word.tags %}<a href="/search/?tag={{tag}}">{{tag}}</a> {%end%}</p>
 		<form method="POST" name="add-tags" parsley-validate>
 			<label for="tags">Add tags (separated by commas): <input type="text" class="tags" name="tags" id="tag-field" parsley-required="true"></label><br>
 			<input type="hidden" name="action" value="add-tags">
+			<input type="hidden" name="word_name" value="{{word.prettyName}}">
 			{% raw xsrf_form_html() %}
 			<input type="submit" value="Submit Tags">
 		</form>
@@ -36,6 +37,7 @@
 			<label for="category_policy"><input type="radio" name="category" id="category_policy" value="Policy">Policy</label>
 			<label for="category_both"><input type="radio" name="category" id="category_both" value="Policy" parsley-required="true">Both</label><br>
 			<input type="hidden" name="action" value="define">
+			<input type="hidden" name="word_name" value="{{word.prettyName}}">
 			{% raw xsrf_form_html() %}
 			<input type="submit"> 
 		</form>
@@ -48,7 +50,9 @@
 			<label for="cateory_tech"><input type="radio" name="category" id="cateory_tech" value="Tech">Tech</label>
 			<label for="category_policy"><input type="radio" name="category" id="category_policy" value="Policy">Policy</label>
 			<label for="category_both"><input type="radio" name="category" id="category_both" value="Policy" parsley-required="true">Both</label><br>
-			<input type="hidden" name="action" value="define">
+			<label for="tags">Add tags (separated by commas): <input type="text" class="tags" name="tags" id="tag-field" parsley-required="true"></label><br>
+			<input type="hidden" name="word_name" value="{{word.prettyName}}">
+			<input type="hidden" name="action" value="define_new">
 			{% raw xsrf_form_html() %}
 			<input type="submit"> 
 		</form>

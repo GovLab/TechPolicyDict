@@ -6,20 +6,19 @@
 
 
 
-<h1>{{ page_heading }}</h1>
-
-
 {% if word %}
 	<h1>{{ word.name }}</h1>
 
 	{% if word.defs %}
-		<h2>Definitions: </h2>
-		{% for d in word.defs %}
-			<p>{{d.d}}</p>
-			<button>Vote Up</button><button>Vote Down</button>
-			<p>--------------------------------</p>
-		{%end%}
-		<p>================================================================================</p>
+		<div class="definition-list">
+			{% for d in word.defs %}
+				<div class="definition {{d.category}}">
+					<p>{{d.d}}</p>
+					<button>Vote Up</button><button>Vote Down</button>
+					<p>--------------------------------</p>
+				</div>
+			{%end%}
+		</div>
 		<p>Tags: {% for tag in word.tags %}<a href="/search/?tag={{tag}}">{{tag}}</a> {%end%}</p>
 		<form method="POST" name="add-tags" parsley-validate>
 			<label for="tags">Add tags (separated by commas): <input type="text" class="tags" name="tags" id="tag-field" parsley-required="true"></label><br>

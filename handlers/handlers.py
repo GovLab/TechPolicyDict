@@ -14,7 +14,7 @@ class MainHandler(BaseHandler):
         self.render(
             "index.html",
             page_title='Heroku Funtimes',
-            page_heading='Tech Policy Dictionary',
+            page_heading='The Tech Policy Dictionary',
             user=user,
             defined_words = defined_words,
             undefined_words = undefined_words
@@ -28,6 +28,7 @@ class AboutHandler(BaseHandler):
             "about.html",
             page_title='Heroku Funtimes',
             page_heading='About Page',
+            user=self.current_user
         )
 
 class LoginHandler(BaseHandler):
@@ -38,7 +39,8 @@ class LoginHandler(BaseHandler):
             next=self.get_argument("next","/"), 
             message=self.get_argument("error",""),
             page_title="Please Login",
-            page_heading="Login to TPD" 
+            page_heading="Login to TPD",
+            user=self.current_user 
             )
 
     def post(self):
@@ -74,7 +76,8 @@ class RegisterHandler(LoginHandler):
             next=self.get_argument("next","/"),
             message=self.get_argument("error",""),
             page_title="Register",
-            page_heading="Register for TPD"
+            page_heading="Register for TPD",
+            user=self.current_user
             )
 
     def post(self):
@@ -172,7 +175,8 @@ class WordHandler(BaseHandler):
                 "word.html",
                 page_title='Heroku Funtimes',
                 page_heading='Word Page',
-                word=word
+                word=word,
+                user=self.current_user
             )
         else:
             self.render(
@@ -180,7 +184,8 @@ class WordHandler(BaseHandler):
                 error = "Word Not Found",
                 word=word_name,
                 page_heading = "Word Not Found",
-                page_title = "Word Not Found"
+                page_title = "Word Not Found",
+                user=self.current_user
             )
 
     def post(self):
@@ -258,14 +263,16 @@ class SearchHandler(BaseHandler):
                 page_title='Heroku Funtimes',
                 page_heading='Search Page',
                 words = words,
-                tag=tag
+                tag=tag,
+                user=self.current_user
             )
         else:
             self.render(
                 "404.html",
                 error = "Word Not Found",
                 page_heading = "Word Not Found",
-                page_title = "Word Not Found"
+                page_title = "Word Not Found",
+                user=self.current_user
             )
 
 class ValidateHandler(BaseHandler):

@@ -7,14 +7,22 @@
 	<div class="row">
 		<div class="column large-12 small-12 medium-12">
 			<h1>{{ page_heading }}</h1>
-			{% if user %}
-				<h2>Welcome {{user.name}}</h2>
-			{% end %}
 		</div>
 	</div>
 	<div class="row">
 		<div class="column large-12 small-12 medium-12">
-			<h3>Here's a list of words and phrases that need defining. Help us define them!</h3>
+			<h3>The what?</h3>
+			<p>Are you a tech person? Have you ever tried collaborating with a policy expert and gone "What the heck is a multistakeholder?" Or as a policy person, have you ever talked with a techie and wondered "What's packet switching?" With the Tech-Policy Dictionary, we hope to break down the barriers between tech and policy.</p>
+	<div class="row">
+		<div class="column large-12 small-12 medium-12">
+			<div class="search-bar">
+				<label for="search">Search: <input type="text"></label><input type="submit" value="Go!">
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="column large-12 small-12 medium-12">
+			<h3>These terms and phrases need defining. Think you know what's up? Help us out by defining them!</h3>
 			<ul>
 				{% for word in undefined_words %}
 					<li><a href="/word/?word={{word.name}}">{{word.name}}</a></li>
@@ -25,16 +33,15 @@
 
 	<div class="row">
 		<div class="column large-12 small-12 medium-12">
-			<h2>Here are some recently defined words.</h2>
+			<h2>Featured terms and phrases</h2>
 		</div>	
 	{% for word in defined_words %}
 		<div class="large-4 medium-6 small-12 column">
 			<div class="verbete">
 				<h4><a href="/word/?word={{word.name}}">{{word.name}}</a></h4>
-				<p>Definitions</p>
-				{% for d in word.defs %}
-					<p>{{ d.d}}</p>
-				{% end %}
+				<div class="definition-main">
+					<p>{{ word.defs[0].d }} (<a href="/word/?word={{word.name}}">see more</a>)</p>
+				</div>
 				<p>Tags: {% for tag in word.tags %}<a class="tag" href="/search/?tag={{tag}}">{{tag}}, </a>{% end %}</p>
 				<p class="submitted-by">Submitted by: {{word.sub.name}}</p>
 			</div>

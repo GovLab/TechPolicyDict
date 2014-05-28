@@ -8,18 +8,17 @@
 
 {% if word %}
 	<h1>{{ word.name }}</h1>
-	{% if user %}
-		{% if word.defs %}
-			<div class="definition-list">
-				{% for d in word.defs %}
-					<div class="definition {{d.category}}">
-						<p>{{d.d}}</p>
-						<button>Vote Up</button><button>Vote Down</button>
-						<p>--------------------------------</p>
-					</div>
-				{%end%}
-			</div>
-			<p>Tags: {% for tag in word.tags %}<a href="/search/?tag={{tag}}">{{tag}}</a> {%end%}</p>
+	{% if word.defs %}
+		<div class="definition-list">
+			{% for d in word.defs %}
+				<div class="definition {{d.category}}">
+					<p>{{d.d}}</p>
+					<button>Vote Up</button><button>Vote Down</button>
+				</div>
+			{%end%}
+		</div>
+		{% if user %}
+			<p>Tags: {% for tag in word.tags %}<a href="/search/?tag={{tag}}">{{tag}}, </a> {%end%}</p>
 			<form method="POST" name="add-tags" parsley-validate>
 				<label for="tags">Add tags (separated by commas): <input type="hidden" class="tags" name="tags" id="tag-field" parsley-required="true"></label><br>
 				<input type="hidden" name="action" value="add-tags">
@@ -27,6 +26,8 @@
 				{% raw xsrf_form_html() %}
 				<input type="submit" value="Submit Tags">
 			</form>
+		{%end%}
+		{% if user %}
 			<h3>Add your own definition: </h3>
 			<form method="POST" name="add-def" parsley-validate>
 				<p>Definition [100 words max]:</p>
@@ -41,6 +42,12 @@
 				<input type="submit"> 
 			</form>
 		{%else%}
+			<div class="column large-12 medium-12 small-12 bottom-message">
+				<p>Want to add your own definition? You must be <a href="/login/">logged in</a> to do that.</p>
+			</div>
+		{%end%}
+	{%else%}
+		{% if user %}
 			<h3>This term/phrase is not yet defined, define it! </h3>
 			<form method="POST" name="add-def" parsley-validate>
 				<p>Definition [100 words max]:</p>
@@ -55,12 +62,12 @@
 				{% raw xsrf_form_html() %}
 				<input type="submit"> 
 			</form>
+		{%else%}
+			<p>No definitions yet :(</p>
+			<div class="column large-12 medium-12 small-12 bottom-message">
+				<p>Would you like to define this term or phrase? You must be <a href="/login/">logged in</a> to do that.</p>
+			</div>
 		{%end%}
-	{%else%}
-		<p>No definitions yet :(</p>
-		<div class="column large-12 medium-12 small-12 bottom-message">
-			<p>Would you like to define this term or phrase? You must be <a href="/login/">logged in</a> to do that.</p>
-		</div>
 	{%end%}
 	
 {%end%}

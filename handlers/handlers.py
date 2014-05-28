@@ -13,7 +13,7 @@ class MainHandler(BaseHandler):
         undefined_words = models.Words.objects(status="undefined")
         self.render(
             "index.html",
-            page_title='Heroku Funtimes',
+            page_title='The Tech Policy Dictionary',
             page_heading='The Tech Policy Dictionary',
             user=user,
             defined_words = defined_words,
@@ -26,8 +26,8 @@ class AboutHandler(BaseHandler):
     def get(self):
         self.render(
             "about.html",
-            page_title='Heroku Funtimes',
-            page_heading='About Page',
+            page_title='About the TPD',
+            page_heading='About The TPD',
             user=self.current_user
         )
 
@@ -119,7 +119,7 @@ class SubmitHandler(BaseHandler):
         logging.info(self.current_user)
         self.render(
             "submit.html",
-            page_title='Heroku Funtimes',
+            page_title='Submit a Term or Phrase',
             page_heading='Submit Page',
             user = self.current_user
         )
@@ -173,7 +173,7 @@ class WordHandler(BaseHandler):
         if word:
             self.render(
                 "word.html",
-                page_title='Heroku Funtimes',
+                page_title='TPD-'+word.name,
                 page_heading='Word Page',
                 word=word,
                 user=self.current_user
@@ -213,12 +213,7 @@ class WordHandler(BaseHandler):
                 if tag not in word.tags:
                     word.tags.append(tag)
             word.save()
-            self.render(
-                "word.html",
-                page_title='Heroku Funtimes',
-                page_heading='Word Page',
-                word=word
-            )
+            self.redirect("/word/?word="+tornado.escape.url_escape(word.name))
             #--------------------------------------ADD DEFINITION-------------------------
         if action == "define":
             definition = models.Definitions(

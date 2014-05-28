@@ -18,7 +18,7 @@
 	{% if words %}
 		<ul>
 			{% for word in words %}
-				<li><p>{{word.name}}</p></li>
+				<li><a href="/word/?word={{word.name}}">{{word.name}}</a></li>
 			{% end %}
 		</ul>
 	{%end%}

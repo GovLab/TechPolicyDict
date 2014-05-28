@@ -4,22 +4,24 @@
 
 {% block body %}
 
+<div class="row">
+	<div class="column large-12 medium-12 small-12">
+		<h1>{{ page_heading }}</h1>
+	</div>
+</div>
 
-<h1>{{ page_heading }}</h1>
-
-
-
-{% if tag %}
-<p>Terms and phrases tagged as: {{tag}}</p>
-{% end %}
-
-{% if words %}
-	<ul>
-		{% for word in words %}
-			<li><p>{{word.name}}</p></li>
-		{% end %}
-	</ul>
-{%end%}
-
-
+<div class="row">
+	<div class="column large-12 medium-12 small-12">
+	{% if tag %}
+		<p>Terms and phrases tagged as: {{tag}}</p>
+	{% end %}
+	{% if words %}
+		<ul>
+			{% for word in words %}
+				<li><p>{{word.name}}</p></li>
+			{% end %}
+		</ul>
+	{%end%}
+	</div>
+</div>
 {% end %}

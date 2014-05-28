@@ -11,22 +11,34 @@
 }
 
 </style>
-<h1>{{ page_heading }}</h1>
+<div class="row">
+	<div class="column small-12 large-12 medium-12">
+		<h1>{{ page_heading }}</h1>
+	</div>
+</div>
 
 <form class="login-form" action="/login" method="POST" parsley-validate>
-	<div class="m-form-line"><label for="">Email:</label><input type="text" name="email" parsley-trigger="change" parsley-type="email" parsley-required="true" /></div>
-	<div class="m-form-line"><label for="">Password:</label><input type="password" name="password" parsley-required="true" /></div>
-	{% raw xsrf_form_html() %}
-	<div class="m-form-line submit"><input class="m-button" type="submit" value="Log In" /></div>
-	{% try %}
-		{% if message %}
-			<div class="login-error-message"><p>{{message}}</p></div>
-		{%end%}
-	{%except%}
-	{%end%}
+	<div class="row">
+		<div class="column small-12 large-12 medium-12">
+			<label for="">Email:
+				<input type="text" name="email" parsley-trigger="change" parsley-type="email" parsley-required="true" />
+			</label>
+		</div>
+		<div class="column small-12 large-12 medium-12">
+			<label for="">Password:</label><input type="password" name="password" parsley-required="true" />
+			{% raw xsrf_form_html() %}
+		</div>
+		<div class="column small-12 large-12 medium-12">
+			<input class="m-button" type="submit" value="Log In" />
+			{% try %}
+				{% if message %}
+					<div class="login-error-message"><p>{{message}}</p></div>
+				{%end%}
+			{%except%}
+			{%end%}
+		</div>
+	</div>
 </form>
-
-
 
 
 

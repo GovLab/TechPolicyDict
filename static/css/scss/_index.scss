@@ -1,0 +1,98 @@
+body {
+	background-color: $gray_3;
+}
+
+h1, h2, h3, h4, h5 {
+	font-family: $fancy-type !important;
+}
+
+h1 {
+	font-weight: 100 !important;
+}
+
+a {
+	color: $main_color !important;
+}
+
+p {
+	margin-bottom: 1rem !important;
+}
+
+#container {
+	padding-top: 30px;
+}
+
+.bottom-message {
+	margin-top: 30px;
+	border-top: 1px solid $gray_20;
+	padding-top: 20px;
+}
+
+.login-menu {
+	float: right;
+}
+
+.m-button {
+	padding: 7px 10px;
+	background-color: $main_color;
+	color: $white;
+	border: 0;
+	font-family: $fancy-type !important;
+	font-size: .8rem;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.top-menu {
+	background-color: $main_color;
+	padding: 7px 0;
+
+	a {
+		font-family: $fancy-type !important;
+		color: $white !important;
+		font-weight: 300;
+		padding: 5px 20px;
+	}
+
+	a:first-child {
+		padding-left: 0;
+	}
+
+	a:hover {
+		background-color: $main_color_50;
+	}
+
+	a:first-child:hover {
+		padding-left: 20px;
+		margin-left: -20px;
+	}
+}
+
+
+
+
+
+.verbete {
+	border: 1px solid $gray_20;
+	border-top: 3px solid $main_color;
+	padding: 0 10px;
+	margin-bottom: 20px;
+	-webkit-box-shadow: 3px 3px 6px $gray_10;
+	-moz-box-shadow: 3px 3px 6px $gray_10;
+	box-shadow: 3px 3px 6px $gray_10;
+
+	h4 {
+		font-weight: 600;
+		text-transform: uppercase;
+	}
+}
+
+.submitted-by {
+	font-size: .8rem;
+	font-style: italic;
+	color: $gray_60;
+}
+
+.tag {
+	font-style: italic;
+}

@@ -14,7 +14,7 @@ class MainHandler(BaseHandler):
         self.render(
             "index.html",
             page_title='Heroku Funtimes',
-            page_heading='Main Page',
+            page_heading='Tech Policy Dictionary',
             user=user,
             defined_words = defined_words,
             undefined_words = undefined_words

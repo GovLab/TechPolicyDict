@@ -9,13 +9,15 @@ class MainHandler(BaseHandler):
             user = models.Users.objects.get(email=self.current_user)
         except:
             user = ''
-        words = models.Words.objects()
+        defined_words = models.Words.objects(status="defined")
+        undefined_words = models.Words.objects(status="undefined")
         self.render(
             "index.html",
             page_title='Heroku Funtimes',
             page_heading='Main Page',
             user=user,
-            words = words
+            defined_words = defined_words,
+            undefined_words = undefined_words
         )
 
 class AboutHandler(BaseHandler):
@@ -120,23 +122,38 @@ class SubmitHandler(BaseHandler):
         )
 
     def post(self):
-        w = self.get_argument("word", None)
-        d = self.get_argument("definition", None)
-        category = self.get_argument("category", None)
-        self.get_argument("tags", None)
-        tags = [x.strip() for x in self.get_argument("tags", None).split(',')]
-        user = models.Users.objects.get(email=self.current_user)
-        definition = models.Definitions(
-            d = d,
-            category = category,
-            sub = user
-        )
-        word = models.Words(
-            w = w,
-            tags = tags,
-            sub = user
-        )
-        word.defs.append(definition)
+        action = self.get_argument("action", None)
+        #--------------------------------------REQUEST DEFINITION-------------------------
+        if action == "request":
+            word_name = self.get_argument("word_name", None).strip()
+            prettyName = re.sub(r'([^\s\w])+', '', word_name).replace(" ", "-").title()
+            word = models.Words(
+                name = word_name,
+                prettyName=prettyName,
+                status="undefined"
+            )
+        else:
+            #--------------------------------------SUBMIT DEFINITION------------------------- 
+            word_name = self.get_argument("word_name", None).strip()
+            prettyName = re.sub(r'([^\s\w])+', '', word_name).replace(" ", "-").title()
+            d = self.get_argument("definition", None)
+            category = self.get_argument("category", None)
+            self.get_argument("tags", None)
+            tags = [x.strip() for x in self.get_argument("tags", None).split(',')]
+            user = models.Users.objects.get(email=self.current_user)
+            definition = models.Definitions(
+                d = d,
+                category = category,
+                sub = user
+            )
+            word = models.Words(
+                name = word_name,
+                prettyName=prettyName,
+                tags = tags,
+                sub = user,
+                status="defined"
+            )
+            word.defs.append(definition)
         word.save()
         self.redirect("/")
 
@@ -144,27 +161,67 @@ class WordHandler(BaseHandler):
     @tornado.web.addslash
     #@tornado.web.authenticated
     def get(self):
-        self.render(
-            "word.html",
-            page_title='Heroku Funtimes',
-            page_heading='Word Page',
-        )
+        word_name = self.get_argument("word", "")
+        try:
+            word = models.Words.objects.get(name=word_name)
+        except Exception, e:
+            logging.info("Error looking for word: " + str(e))
+            word = None
+        if word:
+            self.render(
+                "word.html",
+                page_title='Heroku Funtimes',
+                page_heading='Word Page',
+                word=word
+            )
+        else:
+            self.render(
+                "404.html",
+                error = "Word Not Found",
+                word=word_name,
+                page_heading = "Word Not Found",
+                page_title = "Word Not Found"
+            )
 
 class SearchHandler(BaseHandler):
     @tornado.web.addslash
     #@tornado.web.authenticated
     def get(self):
         tag = self.get_argument("tag", "")
-        words = models.Words.objects(tags__contains=tag)
-        self.render(
-            "search.html",
-            page_title='Heroku Funtimes',
-            page_heading='Search Page',
-            words = words,
-            tag=tag
-        )
+        try:
+            words = models.Words.objects(tags__contains=tag)
+        except Exception, e:
+            logging.info("Error looking for word: " + str(e))
+            words = None
+        if words:
+            self.render(
+                "search.html",
+                page_title='Heroku Funtimes',
+                page_heading='Search Page',
+                words = words,
+                tag=tag
+            )
+        else:
+            self.render(
+                "404.html",
+                error = "Word Not Found",
+                page_heading = "Word Not Found",
+                page_title = "Word Not Found"
+            )
 
-
+class ValidateHandler(BaseHandler):
+    def post(self):
+        #check if word exists:
+        word_name = self.get_argument("word_name", None)
+        prettyName = re.sub(r'([^\s\w])+', '', word_name).replace(" ", "-").title()
+        logging.info(prettyName)
+        try: 
+            w = models.Words.objects.get(prettyName=prettyName)
+            logging.info('word exists.')
+            self.write('{ "error": "This word/phrase has already been submitted." }')
+        except:
+            logging.info('word does not exist. Carry on.')
+            self.write('true')
 
 
 

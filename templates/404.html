@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+{% autoescape None %}
+
+{% block body %}
+
+<h1 style="text-align:center;">{{ page_heading }}</h1>
+<br>
+{%if error == 'Word Not Found' %}
+<h3 style="text-align:center;">Seems like we don't have this word.</h3>
+<h3 style="text-align:center;">Know how to define it? <a href="/submit/?word={{word}}">Submit a definition!</a> or <a href="/suggest/?word={{word}}">suggest this word</a> so someone can define it.</h3>
+{% else %}
+<h3 style="text-align:center;">There doesn't seem to be anything here.</h3>
+{%end%}
+
+{% end %}

@@ -10,13 +10,15 @@
 
 
 {% if tag %}
-<p>{{tag}}</p>
+<p>Terms and phrases tagged as: {{tag}}</p>
 {% end %}
 
 {% if words %}
-	{% for word in words %}
-		<p>{{word.w}}</p>
-	{% end %}
+	<ul>
+		{% for word in words %}
+			<li><p>{{word.name}}</p></li>
+		{% end %}
+	</ul>
 {%end%}
 
 

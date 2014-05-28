@@ -12,14 +12,21 @@
 		<h2>Welcome {{user.name}}</h2>
 	{% end %}
 
-	{% for word in words %}
-		<h3>{{ word.w}}</h3>
+	<h2>Here's a list of words and phrases that need defining. Help us define them!</h2>
+	<ul>
+		{% for word in undefined_words %}
+			<li><a href="/word/?word={{word.name}}">{{word.name}}</a></li>
+		{%end%}
+	</ul>
+
+	<h2>Here are some recently defined words.</h2>
+	{% for word in defined_words %}
+		<h3><a href="/word/?word={{ word.name}}">{{word.name}}</a></h3>
 		<p>Definitions</p>
 		{% for d in word.defs %}
 			<p>{{ d.d}}</p>
 		{% end %}
-		<p>Tags:</p>
-		{% for tag in word.tags %}<a href="/search/?tag={{tag}}">{{tag}}</a> {% end %}
+		<p>Tags: {% for tag in word.tags %}<a href="/search/?tag={{tag}}">{{tag}}</a> {% end %}</p>
 		<p>Submitted by: {{word.sub.name}}</p>
 		<p>=======================================================</p>
 	{% end %}

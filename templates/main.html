@@ -9,7 +9,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>{{ page_title }}</title>
     <link rel="stylesheet" href="{{ static_url("css/style.css") }}" />
+    <link rel="stylesheet" href="{{ static_url("css/jquery.tagit.css") }}" />
+    <link rel="stylesheet" href="{{ static_url("css/jquery-ui-1.10.4.custom.min.css") }}" />
     <link rel="stylesheet" href="{{ static_url("css/libs/normalize/normalize.css") }}" />
+    <!-- Load jQuery -->
+    <script src="{{ static_url("js/jquery-2.1.0.min.js") }}"></script>
+    <script src="{{ static_url("js/jquery-ui-1.10.4.custom.min.js") }}"></script>
+    <script>!window.jQuery && document.write('<script src="{{ static_url("js/jquery-2.1.0.min.js") }}"><\/script>')</script>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -23,7 +29,6 @@
         <a href="/login/">Login</a>
         <a href="/register/">Register</a>
         <a href="/submit/">Submit</a>
-        <a href="/word/">Word</a>
         <a href="/search/">Search</a>
         <a href="/logout/">Logout</a>
     </header><!-- end header -->
@@ -37,12 +42,11 @@
     <footer>
     </footer><!-- end footer -->
 
-    <!-- Load jQuery -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-    <script>!window.jQuery && document.write('<script src="{{ static_url("js/libs/jquery/jquery-1.10.1.min.js") }}"><\/script>')</script>
-
     <!-- plugins -->
     <script src="{{ static_url("js/plugins.js") }}"></script>
+    <script src="{{ static_url("js/parsley.js") }}"></script>
+    <script src="{{ static_url("js/parsley.extend.min.js") }}"></script>
+    <script src="{{ static_url("js/tag-it.js") }}"></script>
 
     <!-- main script -->
     <script src="{{ static_url("js/script.js") }}"></script>

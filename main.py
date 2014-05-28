@@ -41,7 +41,8 @@ class Application(tornado.web.Application):
             (r"/submit/?", SubmitHandler),
             (r"/logout/?", LogoutHandler),
             (r"/word/?", WordHandler),
-            (r"/search/?", SearchHandler)
+            (r"/search/?", SearchHandler),
+            (r"/validate/?", ValidateHandler)
         ]
         settings = dict(
             template_path=os.path.join(os.path.dirname(__file__), "templates"),

@@ -7,21 +7,33 @@
 
 <h1>{{ page_heading }}</h1>
 
+
+<h1>Would you like to see a word or phrase defined? Request it!</h1>
+<form method="POST" name="request" parsley-validate>
+	<label for="word">Word: <input type="text" class="word" name="word_name" parsley-remote="/validate/" parsley-remote-method="POST" parsley-required="true"></label><br>
+	<input type="hidden" name="action" value="request">
+	{% raw xsrf_form_html() %}
+	<input type="submit"> 
+</form>
+
 {% if user %}
-<form method="POST">
-	<label for="word">Word: <input type="text" class="word" name="word"></label><br>
-	<p>Definition:</p>
-	<textarea class="definition" name="definition"></textarea>
+<h1>Define a word or phrase</h1>
+<form method="POST" name="define" parsley-validate>
+	<label for="word">Word: <input type="text" class="word" name="word_name" parsley-remote="/validate/" parsley-remote-method="POST" parsley-required="true"></label><br>
+	<p>Definition [100 words max]:</p>
+	<textarea class="definition" name="definition" parsley-maxwords="100" parsley-required="true"></textarea>
 	<p>Category</p>
-	<input type="radio" name="category" id="cateory_tech" value="Tech"><label for="cateory_tech">Tech</label>
-	<input type="radio" name="category" id="category_policy" value="Policy"><label for="category_policy">Policy</label>
-	<p>Tags: </p>
-	<label for="tags"><input type="text" class="tags" name="tags" placeholder="Separated by commas."></label>
+	<label for="cateory_tech"><input type="radio" name="category" id="cateory_tech" value="Tech">Tech</label>
+	<label for="category_policy"><input type="radio" name="category" id="category_policy" value="Policy">Policy</label>
+	<label for="category_both"><input type="radio" name="category" id="category_both" value="Policy" parsley-required="true">Both</label>
+	<p>Tags (Separated by commas): </p>
+	<label for="tags"><input type="text" class="tags" name="tags" id="tag-field"></label>
+	<input type="hidden" name="action" value="define">
 	{% raw xsrf_form_html() %}
 	<input type="submit"> 
 </form>
 {% else %}
-<p>You must be <a href="/login/">logged in</a> to submit a word</p>
+<p>Would you like to define a word or phrase? You must be <a href="/login/">logged in</a> to do that.</p>
 {% end %}
 
 

@@ -1,38 +1,36 @@
 body {
-  background-color: rgba(0, 0, 0, 0.03); }
+  background-color: rgba(0, 0, 0, 0.03);
+  font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 h1, h2, h3, h4, h5 {
-  font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif !important; }
+  font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 h1 {
-  font-weight: 100 !important; }
+  font-weight: 100; }
 
 a {
-  color: #472b74 !important; }
+  color: #472b74; }
+
+a:hover {
+  color: #8977a7; }
 
 p {
-  margin-bottom: 1rem !important; }
+  margin-bottom: 1rem;
+  color: rgba(0, 0, 0, 0.7); }
 
 #container {
-  padding-top: 30px; }
+  padding-top: 30px;
+  min-height: 665px; }
 
 .bottom-message {
   margin-top: 30px;
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   padding-top: 20px; }
 
-.login-menu {
-  float: right; }
-
-.m-button {
-  padding: 7px 10px;
-  background-color: #472b74;
-  color: white;
-  border: 0;
-  font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-  font-size: .8rem;
-  font-weight: 600;
-  text-transform: uppercase; }
+.button, button {
+  background-color: #472b74; }
+  .button:hover, button:hover {
+    background-color: #8977a7; }
 
 .top-menu {
   background-color: #472b74;
@@ -41,26 +39,63 @@ p {
     font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
     color: white !important;
     font-weight: 300;
-    padding: 5px 20px; }
+    padding: 5px 10px;
+    font-size: .8rem; }
   .top-menu a:first-child {
     padding-left: 0; }
   .top-menu a:hover {
     background-color: #8977a7; }
   .top-menu a:first-child:hover {
-    padding-left: 20px;
-    margin-left: -20px; }
+    padding-left: 10px;
+    margin-left: -10px; }
+
+.needs-def-title {
+  margin-bottom: 30px; }
+
+.needs-def {
+  border: 1px solid #472b74;
+  padding: 5px;
+  margin: 4px 2px;
+  display: inline-block; }
+  .needs-def:hover {
+    background-color: rgba(0, 0, 0, 0.1); }
+    .needs-def:hover a {
+      color: rgba(0, 0, 0, 0.7); }
+
+.section {
+  padding-bottom: 40px !important;
+  padding-top: 30px !important;
+  border-bottom: 1px solid white;
+  border-top: 1px solid rgba(0, 0, 0, 0.2); }
+  .section .section-title {
+    margin-bottom: 30px; }
 
 .verbete {
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-top: 3px solid #472b74;
-  padding: 0 10px;
+  border: 1px solid #472b74;
+  padding: 5px 10px;
   margin-bottom: 20px;
-  -webkit-box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
-  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1); }
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer; }
   .verbete h4 {
     font-weight: 600;
     text-transform: uppercase; }
+  .verbete a {
+    color: rgba(0, 0, 0, 0.7); }
+  .verbete:hover {
+    -webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3); }
+
+.verbete.Tech, .needs-def.Tech {
+  border-color: orange; }
+.verbete.Policy, .needs-def.Policy {
+  border-color: green; }
+.verbete.Policy.Tech, .needs-def.Policy.Tech {
+  border-color: orange;
+  outline-offset: 2px;
+  outline: 1px solid green; }
 
 .submitted-by {
   font-size: .8rem;
@@ -69,3 +104,23 @@ p {
 
 .tag {
   font-style: italic; }
+
+.about-tagline {
+  letter-spacing: -0.2px;
+  margin-bottom: 30px; }
+
+footer {
+  background-color: #472b74; }
+  footer p {
+    color: white;
+    font-size: rem-calc(10);
+    font-weight: 100; }
+    footer p a {
+      color: white; }
+    footer p a:hover {
+      color: white;
+      text-decoration: underline; }
+  footer #govlab-logo {
+    width: 200px;
+    opacity: 0.3;
+    float: right; }

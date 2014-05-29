@@ -1,25 +1,33 @@
 body {
 	background-color: $gray_3;
+	font-family: $fancy-type;
 }
 
 h1, h2, h3, h4, h5 {
-	font-family: $fancy-type !important;
+	font-family: $fancy-type;
 }
 
 h1 {
-	font-weight: 100 !important;
+	font-weight: 100;
 }
 
 a {
-	color: $main_color !important;
+	color: $main_color;
+}
+
+a:hover {
+	color: $main_color_50;
 }
 
 p {
-	margin-bottom: 1rem !important;
+	
+	margin-bottom: 1rem;
+	color: $gray_70;
 }
 
 #container {
 	padding-top: 30px;
+	min-height: 665px;
 }
 
 .bottom-message {
@@ -28,19 +36,14 @@ p {
 	padding-top: 20px;
 }
 
-.login-menu {
-	float: right;
-}
 
-.m-button {
-	padding: 7px 10px;
+
+.button, button {
 	background-color: $main_color;
-	color: $white;
-	border: 0;
-	font-family: $fancy-type !important;
-	font-size: .8rem;
-	font-weight: 600;
-	text-transform: uppercase;
+
+	&:hover {
+		background-color: $main_color_50;
+	}
 }
 
 .top-menu {
@@ -51,7 +54,8 @@ p {
 		font-family: $fancy-type !important;
 		color: $white !important;
 		font-weight: 300;
-		padding: 5px 20px;
+		padding: 5px 10px;
+		font-size: .8rem;
 	}
 
 	a:first-child {
@@ -63,29 +67,91 @@ p {
 	}
 
 	a:first-child:hover {
-		padding-left: 20px;
-		margin-left: -20px;
+		padding-left: 10px;
+		margin-left: -10px;
+	}
+}
+.needs-def-title {
+	margin-bottom: 30px;
+}
+.needs-def {
+	border: 1px solid $main_color;
+	padding: 5px;
+	margin: 4px 2px;
+	display: inline-block;
+
+	&.Tech {
+
+	}
+
+	&:hover {
+		background-color: $gray_10;
+		a {
+			color: $gray_70;		
+		}
 	}
 }
 
+.section {
+	padding-bottom: 40px !important;
+	padding-top: 30px !important;
+	border-bottom: 1px solid $white;
+	border-top: 1px solid $gray_20;
 
-
-
+	.section-title {
+		margin-bottom: 30px;
+	}
+}
 
 .verbete {
-	border: 1px solid $gray_20;
-	border-top: 3px solid $main_color;
-	padding: 0 10px;
+	// border: 1px solid $gray_20;
+	border: 1px solid $main_color;
+	// border-top: 3px solid $main_color;
+	padding: 5px 10px;
 	margin-bottom: 20px;
-	-webkit-box-shadow: 3px 3px 6px $gray_10;
+	-webkit-box-shadow: 3px 3px 10px $gray_30;
 	-moz-box-shadow: 3px 3px 6px $gray_10;
 	box-shadow: 3px 3px 6px $gray_10;
+	cursor: pointer;
 
 	h4 {
 		font-weight: 600;
 		text-transform: uppercase;
 	}
+
+	a {
+		color: $gray_70;
+	}
+
+	
+
+	&:hover {
+		-webkit-box-shadow: 3px 3px 10px $gray_30;
+		-moz-box-shadow: 3px 3px 10px $gray_30;
+		box-shadow: 3px 3px 10px $gray_30;		
+	}
 }
+
+
+ // Colors
+
+ .verbete, .needs-def {
+ 	&.Tech {
+		border-color: $secondary_color;	
+	}
+
+	&.Policy {
+		border-color: $terciary_color;	
+	}
+
+	&.Policy.Tech {
+		border-color: $secondary_color;
+		outline-offset: 2px;
+		outline: 1px solid $terciary_color;
+
+	}
+ }
+
 
 .submitted-by {
 	font-size: .8rem;
@@ -96,3 +162,37 @@ p {
 .tag {
 	font-style: italic;
 }
+
+// About
+
+.about-tagline {
+	letter-spacing: -0.2px;	
+	margin-bottom: 30px;
+}
+
+footer {
+	background-color: $main-color;
+
+	p {
+		color: $white;
+		font-size: rem-calc(10);
+		font-weight: 100;
+
+		a {
+			color: $white;
+		}	
+
+		a:hover {
+			color: $white;
+			text-decoration: underline;
+		}
+	}
+	
+	#govlab-logo {
+		width: 200px;
+		opacity: 0.3;
+		float: right;
+	}
+
+}
+

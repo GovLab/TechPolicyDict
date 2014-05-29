@@ -29,10 +29,10 @@
 			{% raw xsrf_form_html() %}
 		</div>
 		<div class="column small-12 large-12 medium-12">
-			<input class="m-button" type="submit" value="Log In" />
+			<input class="button" type="submit" value="Log In" />
 			{% try %}
 				{% if message %}
-					<div class="login-error-message"><p>{{message}}</p></div>
+					<div class="alert-box alert login-error-message">{{message}}</div>
 				{%end%}
 			{%except%}
 			{%end%}

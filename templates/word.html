@@ -7,7 +7,14 @@
 
 
 {% if word %}
-	<h1>{{ word.name }}</h1>
+
+	<div class="row">
+		<div class="column large-12 small-12 medium-12">
+			<h1>{{ word.name }}</h1>
+		</div>
+	</div>
+	<div class="row section">
+		<div class="column large-9 small-12 medium-8">
 	{% if word.defs %}
 		<div class="definition-list">
 			{% for d in word.defs %}
@@ -69,9 +76,9 @@
 			</div>
 		{%end%}
 	{%end%}
-	
 {%end%}
-
+</div>
+</div>
 
 
 

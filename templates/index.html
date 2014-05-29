@@ -9,42 +9,44 @@
 			<h1>{{ page_heading }}</h1>
 		</div>
 	</div>
-	<div class="row">
-		<div class="column large-12 small-12 medium-12">
+	<div class="row section">
+		<div class="column large-9 small-12 medium-8">
 			<h3>The what?</h3>
 			<p>Are you a tech person? Have you ever tried collaborating with a policy expert and gone "What the heck is a multistakeholder?" Or if you are a policy person, have you ever talked with a techie and wondered "Packet switching? What is she talking about?" With the Tech-Policy Dictionary, we hope to break down the barriers between tech and policy so we can all better understand each other.</p>
-	<div class="row">
-		<div class="column large-12 small-12 medium-12">
 			<div class="add-words">
-				<a href="/submit/"><button>Add to the Dictionary!</button></a>
+				<a href="/submit/"><button class="button expand">Add to the Dictionary!</button></a>
 			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="column large-12 small-12 medium-12">
+		<div class="column large-3 small-12 medium-4">
 			<div class="search-bar">
-				<label for="search">Search: <input type="text"></label><input type="submit" value="Go!">
+				<div class="row collapse">
+			        <div class="small-10 columns">
+			          <input type="text" placeholder="Search">
+			        </div>
+			        <div class="small-2 columns">
+			          <input class="m-button button postfix" type="submit" value="Go!">
+			        </div>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="row">
+	</div>	
+
+	<div class="row section">
 		<div class="column large-12 small-12 medium-12">
-			<h3>These terms and phrases need defining. Think you know what's up? Help us out by defining them!</h3>
-			<ul>
-				{% for word in undefined_words %}
-					<li><a href="/word/?word={{word.name}}">{{word.name}}</a></li>
-				{%end%}
-			</ul>
+			<h3 class="needs-def-title">These terms and phrases need defining. Think you know what's up? <br>Help us out by defining them!</h3>
+			{% for word in undefined_words %}
+				<a class="needs-def" href="/word/?word={{word.name}}">{{word.name}}</a>
+			{%end%}
 		</div>
 	</div>
 
-	<div class="row">
+	<div class="row section">
 		<div class="column large-12 small-12 medium-12">
-			<h2>Featured terms and phrases</h2>
+			<h2 class="section-title">Featured terms and phrases</h2>
 		</div>	
 	{% for word in defined_words %}
 		<div class="large-4 medium-6 small-12 column">
-			<div class="verbete">
+			<div class="verbete {{word.defs[0].category}}">
 				<h4><a href="/word/?word={{word.name}}">{{word.name}}</a></h4>
 				<div class="definition-main {{word.defs[0].category}}">
 					<p>{{ word.defs[0].d }} (<a href="/word/?word={{word.name}}">see more</a>)</p>

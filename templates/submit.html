@@ -23,7 +23,7 @@
 		</div>
 		<div class="column large-12 medium-12 small-12">
 			{% raw xsrf_form_html() %}
-			<input class="m-button" type="submit"> 
+			<input class="button" type="submit"> 
 		</div>
 	</form>
 </div>
@@ -61,13 +61,15 @@
 
 		<div class="column large-12 medium-12 small-12">
 			{% raw xsrf_form_html() %}
-			<input class="m-button" type="submit"> 
+			<input class="button" type="submit"> 
 		</div>
 	</form>
 	{% else %}
+	<div class="row">
 		<div class="column large-12 medium-12 small-12 bottom-message">
 			<p>Would you like to define a word or phrase? You must be <a href="/login/">logged in</a> to do that.</p>
 		</div>
+	</div>
 	{% end %}
 </div>
 

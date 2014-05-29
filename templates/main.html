@@ -8,12 +8,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>{{ page_title }}</title>
-    <link rel="stylesheet" href="{{ static_url("css/luis.css") }}" />
-    <link rel="stylesheet" href="{{ static_url("css/scss/styles.css") }}" />
     <link rel="stylesheet" href="{{ static_url("css/jquery.tagit.css") }}" />
     <link rel="stylesheet" href="{{ static_url("css/jquery-ui-1.10.4.custom.min.css") }}" />
     <link rel="stylesheet" href="{{ static_url("css/libs/normalize/normalize.css") }}" />
     <link rel="stylesheet" href="{{ static_url("css/libs/foundation/css/foundation.css") }}" />
+    <link rel="stylesheet" href="{{ static_url("css/scss/styles.css") }}" />
+    <link rel="stylesheet" href="{{ static_url("css/luis.css") }}" />
+    
     <!-- Load jQuery -->
     <script src="{{ static_url("js/jquery-2.1.0.min.js") }}"></script>
     <script src="{{ static_url("js/jquery-ui-1.10.4.custom.min.js") }}"></script>
@@ -31,14 +32,12 @@
                 <a href="/about/">About</a>
                 <a href="/submit/">Submit</a>
                 <a href="/search/">Search</a>
-                <div class="login-menu">
-                    {% if user %}
-                    <a href="/logout/">Logout</a>
-                    {% else %}
-                    <a href="/register/">Register</a>
-                    <a href="/login/">Login</a>
-                    {% end %}
-                </div>
+                {% if user %}
+                <a href="/logout/">Logout</a>
+                {% else %}
+                <a href="/register/">Register</a>
+                <a href="/login/">Login</a>
+                {% end %}
             </div>
         </div>
     </header><!-- end header -->
@@ -50,6 +49,15 @@
     </div><!-- end main -->
 
     <footer>
+    <div class="row">
+        <div class="large-8 medium-6 small-12 column">
+            <!-- <p class="creative-commons-license"><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Dataset" property="dct:title" rel="dct:type">The Open Data 500</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://thegovlab.org/" property="cc:attributionName" rel="cc:attributionURL">The GovLab</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/GovLab/TechPolicyDict" rel="dct:source">https://github.com/GovLab/TechPolicyDict</a>.</p> -->
+        </div>
+        <div class="large-4 medium-6 small-12 column">
+            <img id="govlab-logo" src="{{ static_url("images/govlab-logo.svg") }}" alt="">
+        </div>
+
+    </div>
     </footer><!-- end footer -->
 
     <!-- plugins -->

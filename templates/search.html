@@ -16,11 +16,11 @@
 		<p>Terms and phrases tagged as: {{tag}}</p>
 	{% end %}
 	{% if words %}
-		<ul>
-			{% for word in words %}
-				<li><a href="/word/?word={{word.name}}">{{word.name}}</a></li>
-			{% end %}
-		</ul>
+		{% for word in words %}
+		<div class="needs-def {{word.defs[0].category}}">
+			<a href="/word/?word={{word.name}}">{{word.name}}</a>
+		</div>
+		{% end %}
 	{%end%}
 	</div>
 </div>

@@ -13,8 +13,8 @@ class MainHandler(BaseHandler):
         undefined_words = models.Words.objects(status="undefined")
         self.render(
             "index.html",
-            page_title='The Tech Policy Dictionary',
-            page_heading='The Tech Policy Dictionary',
+            page_title='The Tech-Policy Dictionary',
+            page_heading='The Tech-Policy Dictionary',
             user=user,
             defined_words = defined_words,
             undefined_words = undefined_words

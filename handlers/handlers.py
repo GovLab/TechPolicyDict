@@ -98,7 +98,7 @@ class RegisterHandler(LoginHandler):
                 self.redirect(u"/register" + error_msg)
             else:
                 hashedPassword = bcrypt.hashpw(password, bcrypt.gensalt(8))
-                newUser = models.User(
+                newUser = models.Users(
                     email=email,
                     name=name,
                     password = hashedPassword

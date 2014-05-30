@@ -47,7 +47,7 @@
 				<p>Category</p>
 				<label for="cateory_tech"><input type="radio" name="category" id="cateory_tech" value="Tech">Tech</label>
 				<label for="category_policy"><input type="radio" name="category" id="category_policy" value="Policy">Policy</label>
-				<label for="category_both"><input type="radio" name="category" id="category_both" value="Policy" parsley-required="true">Both</label><br>
+				<label for="category_unsure"><input type="radio" name="category" id="category_unsure" value="Unsure" parsley-required="true">Unsure</label><br>
 				<input type="hidden" name="action" value="define">
 				<input type="hidden" name="word_name" value="{{word.prettyName}}">
 				{% raw xsrf_form_html() %}

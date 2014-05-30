@@ -126,6 +126,11 @@ class SubmitHandler(BaseHandler):
 
     def post(self):
         action = self.get_argument("action", None)
+        try:
+            user = models.Users.objects.get(email=self.current_user)
+        except Exception, e:
+            logging.info("Could not get user. Are you logged in? " + str(e))
+            self.redirect("/login/")
         #--------------------------------------REQUEST DEFINITION-------------------------
         if action == "request":
             word_name = self.get_argument("word_name", None).strip()
@@ -143,7 +148,6 @@ class SubmitHandler(BaseHandler):
             category = self.get_argument("category", None)
             self.get_argument("tags", None)
             tags = [x.strip() for x in self.get_argument("tags", None).split(',')]
-            user = models.Users.objects.get(email=self.current_user)
             definition = models.Definitions(
                 d = d,
                 category = category,

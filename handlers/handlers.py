@@ -302,12 +302,14 @@ class SearchHandler(BaseHandler):
             except Exception, e:
                 logging.info("Error looking for word: " + str(e))
                 words = None
-        if query:
+        elif query:
             try:
                 words = models.Words.objects(name__contains=query)
             except Exception, e:
                 logging.info("Error looking for word: " + str(e))
                 words = None
+        else:
+            words = ''
         if words:
             self.render(
                 "search.html",

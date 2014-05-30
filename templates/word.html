@@ -20,7 +20,7 @@
 			{% for d in word.defs %}
 				<div class="definition {{d.category}} {{word.prettyName}}">
 					<p>{{d.d}}</p>
-					<div class="vote-tally">Votes: {{d.voteUp-d.voteDown}}</div>
+					<div class="vote-tally">Votes: {{d.vote_tally}}</div>
 					{% if user %}
 						<button class="vote-button up">Vote Up</button><button class="vote-button down">Vote Down</button><span class="vote-message"></span>
 					{%else%}

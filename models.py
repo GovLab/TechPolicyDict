@@ -5,25 +5,25 @@ from mongoengine import *
 from datetime import datetime
 
 
-class Vote(EmbeddedDocument):
+class Vote(Document):
 	user = ReferenceField('Users')
-	vote = IntField()
+	definition = StringField()
+	word = ReferenceField('Words')
+	vote = StringField()
 
 class Users(Document):
 	ts = ComplexDateTimeField(default=datetime.now())
 	email = StringField()
 	name = StringField()
 	password = StringField()
+	votes = ListField(ReferenceField(Vote))
 
 class Definitions(EmbeddedDocument):
 	ts = ComplexDateTimeField(default=datetime.now())
 	d = StringField()
 	category = StringField()
-	voteUp = IntField()
-	voteDown = IntField()
-	votes = ListField(EmbeddedDocumentField(Vote))
+	vote_tally = IntField()
 	sub = ReferenceField(Users)
-	voted_by = ListField(ReferenceField(Users))
 
 class Words(Document):
 	ts = ComplexDateTimeField(default=datetime.now())

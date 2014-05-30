@@ -148,8 +148,7 @@ class SubmitHandler(BaseHandler):
                 d = d,
                 category = category,
                 sub = user,
-                voteUp = 0, 
-                voteDown = 0
+                vote_tally = 0
             )
             word = models.Words(
                 name = word_name,
@@ -222,8 +221,7 @@ class WordHandler(BaseHandler):
                 d = self.get_argument("definition", None),
                 category = self.get_argument("category", None),
                 sub = models.Users.objects.get(email=self.current_user),
-                voteUp = 0,
-                voteDown = 0
+                vote_tally = 0
             )
             word.defs.append(definition)
             word.status = "defined"
@@ -236,8 +234,7 @@ class WordHandler(BaseHandler):
                 d = self.get_argument("definition", None),
                 category = self.get_argument("category", None),
                 sub = models.Users.objects.get(email=self.current_user),
-                voteUp = 0,
-                voteDown = 0
+                vote_tally = 0,
             )
             word.defs.append(definition)
             word.tags = tags
@@ -249,23 +246,49 @@ class WordHandler(BaseHandler):
         if action == "vote":
             definition = self.get_argument("definition", None)
             up_or_down = self.get_argument("vote", None)
-            vote = models.Vote(user = user, vote = up_or_down)
+            try:
+                user = models.Users.objects.get(email=self.current_user)
+            except Exception, e:
+                logging.info("Could not get user. Are you logged in? " + str(e))
+                self.redirect("/login/")
+            #try to get this vote
+            try: 
+                vote = models.Vote.objects.get(Q(user=user) & Q(word=word) & Q(definition=definition))
+                new_vote = False
+                logging.info("Already voted on this definition")
+            except:
+                #no vote, create a new one
+                vote = models.Vote(
+                    user = user, 
+                    vote = up_or_down, 
+                    definition=definition,
+                    word=word)
+                vote.save()
+                user.votes.append(vote)
+                new_vote = True
             #how do I get the definition I want? For now loop through all
             for d in word.defs:
                 if d.d == definition:
-                    if user not in d.voted_by:
-                        d.votes.append(vote)
+                    if new_vote:
                         if up_or_down =="up":
-                            d.voteUp = d.voteUp + 1
+                            d.vote_tally = d.vote_tally + 1
                         if up_or_down == "down":
-                            d.voteDown = d.voteDown + 1
-                        new_vote = d.voteUp - d.voteDown
-                    else:
-                        d.votes.append(vote)
-            word.save()
-            self.write({"vote": new_vote})
-
-
+                            d.vote_tally = d.vote_tally - 1
+                        new_tally = d.vote_tally
+                    if not new_vote:
+                        if vote.vote == up_or_down:
+                            self.write({"vote": d.vote_tally, "message":"Already voted"})
+                        else:
+                            if up_or_down == "up":
+                                d.vote_tally = d.vote_tally + 1
+                                vote.vote = "up"
+                            if up_or_down == "down":
+                                d.vote_tally = d.vote_tally - 1
+                                vote.vote = "down"
+                            vote.save()
+                            new_tally = d.vote_tally
+                            self.write({"vote": new_tally, "message":""})
+                    word.save()
 
 class SearchHandler(BaseHandler):
     @tornado.web.addslash

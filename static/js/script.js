@@ -25,6 +25,7 @@ $(document).ready(function() {
         vote = $(this).attr("class").split(" ")[1];
         definition = $(this).parent().find("p").text();
         word_name = $(this).parent().attr("class").split(" ")[2];
+        this_vote = $(this).parent();
         data = {
             "_xsrf": $("[name='_xsrf']").val(),
             "action": action,
@@ -44,13 +45,13 @@ $(document).ready(function() {
             success: function(data) {
                 console.log(data);
                 if (data["message"] != "") {
-                    $(".vote-message").text("You can't vote the same twice!").show().delay(5000).fadeOut();
+                    this_vote.find(".vote-message").text("You can't vote the same twice!").show().delay(5000).fadeOut();
                 } else if (vote == "up") {
-                    $(".vote-message").text("+1").show().delay(5000).fadeOut();
+                    this_vote.find(".vote-message").text("+1").show().delay(5000).fadeOut();
                 } else if (vote == "down") {
-                    $(".vote-message").text("-1").show().delay(5000).fadeOut();
+                    this_vote.find(".vote-message").text("-1").show().delay(5000).fadeOut();
                 }
-                $(".vote-tally").text("Votes: " + data['vote']);
+                this_vote.find(".vote-tally").text("Votes: " + data['vote']);
                 //document.location.href = '/thanks/';
             }
         });

@@ -18,9 +18,10 @@
 	{% if word.defs %}
 		<div class="definition-list">
 			{% for d in word.defs %}
-				<div class="definition {{d.category}}">
+				<div class="definition {{d.category}} {{word.prettyName}}">
 					<p>{{d.d}}</p>
-					<button>Vote Up</button><button>Vote Down</button>
+					<div class="vote-tally">Votes: {{d.voteUp-d.voteDown}}</div>
+					<button class="vote-button up">Vote Up</button><button class="vote-button down">Vote Down</button><span class="vote-message"></span>
 				</div>
 			{%end%}
 		</div>
@@ -79,7 +80,6 @@
 {%end%}
 </div>
 </div>
-
 
 
 {% end %}

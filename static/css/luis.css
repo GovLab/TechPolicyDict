@@ -15,3 +15,29 @@
 .login-error-message {
 	margin-left: 0 !important;
 }
+
+.vote-button {
+	padding-right: .3rem;
+	padding-bottom: .4rem;
+	padding-top: .4rem;
+	padding-left: .3rem;
+	margin-right: .2rem;
+}
+
+.vote-tally {
+	margin-bottom: 10px;
+}
+
+.definition {
+	border: 1px solid;
+	padding: 10px;
+	margin-top: 10px;
+}
+
+.definition.Policy {
+	border-color: green;
+}
+
+.definition.Tech {
+	border-color: orange;
+}

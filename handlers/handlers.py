@@ -147,7 +147,9 @@ class SubmitHandler(BaseHandler):
             definition = models.Definitions(
                 d = d,
                 category = category,
-                sub = user
+                sub = user,
+                voteUp = 0, 
+                voteDown = 0
             )
             word = models.Words(
                 name = word_name,
@@ -219,7 +221,9 @@ class WordHandler(BaseHandler):
             definition = models.Definitions(
                 d = self.get_argument("definition", None),
                 category = self.get_argument("category", None),
-                sub = models.Users.objects.get(email=self.current_user)
+                sub = models.Users.objects.get(email=self.current_user),
+                voteUp = 0,
+                voteDown = 0
             )
             word.defs.append(definition)
             word.status = "defined"
@@ -231,7 +235,9 @@ class WordHandler(BaseHandler):
             definition = models.Definitions(
                 d = self.get_argument("definition", None),
                 category = self.get_argument("category", None),
-                sub = models.Users.objects.get(email=self.current_user)
+                sub = models.Users.objects.get(email=self.current_user),
+                voteUp = 0,
+                voteDown = 0
             )
             word.defs.append(definition)
             word.tags = tags
@@ -239,6 +245,25 @@ class WordHandler(BaseHandler):
             word.sub = user
             word.save()
             self.redirect("/word/?word="+tornado.escape.url_escape(word.name))
+            #--------------------------------------VOTE-------------------------
+        if action == "vote":
+            definition = self.get_argument("definition", None)
+            up_or_down = self.get_argument("vote", None)
+            vote = models.Vote(user = user, vote = up_or_down)
+            #how do I get the definition I want? For now loop through all
+            for d in word.defs:
+                if d.d == definition:
+                    if user not in d.voted_by:
+                        d.votes.append(vote)
+                        if up_or_down =="up":
+                            d.voteUp = d.voteUp + 1
+                        if up_or_down == "down":
+                            d.voteDown = d.voteDown + 1
+                        new_vote = d.voteUp - d.voteDown
+                    else:
+                        d.votes.append(vote)
+            word.save()
+            self.write({"vote": new_vote})
 
 
 
@@ -247,26 +272,37 @@ class SearchHandler(BaseHandler):
     #@tornado.web.authenticated
     def get(self):
         tag = self.get_argument("tag", "")
-        try:
-            words = models.Words.objects(tags__contains=tag)
-        except Exception, e:
-            logging.info("Error looking for word: " + str(e))
-            words = None
+        query = self.get_argument("query", "")
+        if tag:
+            try:
+                words = models.Words.objects(tags__contains=tag)
+            except Exception, e:
+                logging.info("Error looking for word: " + str(e))
+                words = None
+        if query:
+            try:
+                words = models.Words.objects(name__contains=query)
+            except Exception, e:
+                logging.info("Error looking for word: " + str(e))
+                words = None
         if words:
             self.render(
                 "search.html",
-                page_title='Heroku Funtimes',
-                page_heading='Search Page',
+                page_title='Search Results',
+                page_heading='Search Results',
                 words = words,
                 tag=tag,
+                query=query,
                 user=self.current_user
             )
         else:
             self.render(
-                "404.html",
-                error = "Word Not Found",
-                page_heading = "Word Not Found",
-                page_title = "Word Not Found",
+                "search.html",
+                page_title='Search Results',
+                page_heading='Search Results',
+                words = "",
+                tag=tag,
+                query=query,
                 user=self.current_user
             )
 

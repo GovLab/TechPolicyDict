@@ -6,7 +6,7 @@ from datetime import datetime
 
 
 class Vote(EmbeddedDocument):
-	word = ReferenceField('Words')
+	user = ReferenceField('Users')
 	vote = IntField()
 
 class Users(Document):
@@ -14,7 +14,6 @@ class Users(Document):
 	email = StringField()
 	name = StringField()
 	password = StringField()
-	votes = ListField(EmbeddedDocumentField(Vote))
 
 class Definitions(EmbeddedDocument):
 	ts = ComplexDateTimeField(default=datetime.now())
@@ -22,7 +21,9 @@ class Definitions(EmbeddedDocument):
 	category = StringField()
 	voteUp = IntField()
 	voteDown = IntField()
+	votes = ListField(EmbeddedDocumentField(Vote))
 	sub = ReferenceField(Users)
+	voted_by = ListField(ReferenceField(Users))
 
 class Words(Document):
 	ts = ComplexDateTimeField(default=datetime.now())

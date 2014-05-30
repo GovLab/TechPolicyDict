@@ -12,16 +12,27 @@
 
 <div class="row">
 	<div class="column large-12 medium-12 small-12">
-	{% if tag %}
-		<p>Terms and phrases tagged as: {{tag}}</p>
-	{% end %}
-	{% if words %}
-		{% for word in words %}
-		<div class="needs-def {{word.defs[0].category}}">
-			<a href="/word/?word={{word.name}}">{{word.name}}</a>
-		</div>
-		{% end %}
-	{%end%}
+		{% if words %}
+			{% if tag %}
+				<p>Terms and phrases tagged as: {{tag}}</p>
+			{% end %}
+			{% if query %}
+				<p>Search results for: {{query}}</p>
+			{% end %}
+			{% for word in words %}
+				{% if word.defs %}
+					<div class="needs-def {{word.defs[0].category}}">
+						<a href="/word/?word={{word.name}}">{{word.name}}</a>
+					</div>
+				{%else%}
+					<div class="needs-def no-category">
+						<a href="/word/?word={{word.name}}">{{word.name}}</a>
+					</div>
+				{%end%}
+			{%end%}
+		{%else%}
+			<p>No search results found : (</p>
+		{%end%}
 	</div>
 </div>
 {% end %}

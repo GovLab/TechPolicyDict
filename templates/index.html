@@ -21,10 +21,11 @@
 			<div class="search-bar">
 				<div class="row collapse">
 			        <div class="small-10 columns">
-			          <input type="text" placeholder="Search">
+			          <input type="text" id="search" placeholder="Search">
+			          {% raw xsrf_form_html() %}
 			        </div>
 			        <div class="small-2 columns">
-			          <input class="m-button button postfix" type="submit" value="Go!">
+			          <input class="m-button button postfix" type="submit" value="Go!" onclick="search()">
 			        </div>
 				</div>
 			</div>

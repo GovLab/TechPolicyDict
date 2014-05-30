@@ -21,7 +21,11 @@
 				<div class="definition {{d.category}} {{word.prettyName}}">
 					<p>{{d.d}}</p>
 					<div class="vote-tally">Votes: {{d.voteUp-d.voteDown}}</div>
-					<button class="vote-button up">Vote Up</button><button class="vote-button down">Vote Down</button><span class="vote-message"></span>
+					{% if user %}
+						<button class="vote-button up">Vote Up</button><button class="vote-button down">Vote Down</button><span class="vote-message"></span>
+					{%else%}
+						<p><a href="/login/">Log in</a> to vote.</p>
+					{%end%}
 				</div>
 			{%end%}
 		</div>

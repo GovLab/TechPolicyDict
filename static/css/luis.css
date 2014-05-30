@@ -41,3 +41,26 @@
 .definition.Tech {
 	border-color: orange;
 }
+
+
+input.word {
+	width: 300px;
+}
+
+textarea.definition {
+	width: 500px;
+	height: 200px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
